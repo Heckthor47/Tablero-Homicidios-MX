@@ -643,3 +643,7 @@ geocoder-integrado .map-control-button {
   transform: translateY(-1px) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
+html, body, .page, .main-content, .mapa-main, #map {
+  height: 100vh !important;
+  min-height: 100vh !important;
+}
