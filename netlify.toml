@@ -1,0 +1,7 @@
+[build]
+publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Basic-Auth = "prueba 1234P visitante visitante2025"
