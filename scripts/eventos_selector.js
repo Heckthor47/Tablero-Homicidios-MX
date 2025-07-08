@@ -223,11 +223,19 @@ function aplicarFiltrosEstado(codigoEntidad) {
     "parques-layer": "toggle-parques",
     "escuelas-layer": "toggle-escuelas"
   };
+
   Object.entries(layerToggleMapping).forEach(([layerId, toggleId]) => {
+  // Aplicar filtro por estado
     window.map.setFilter(layerId, ["==", "CVE_ENT", codigoEntidad]);
-    const isChecked = document.getElementById(toggleId).checked;
-    window.map.setLayoutProperty(layerId, "visibility", isChecked ? "visible" : "none");
+
+  // Forzar visibilidad apagada
+    window.map.setLayoutProperty(layerId, "visibility", "none");
+
+  // Asegurar que el checkbox esté desmarcado
+    const checkbox = document.getElementById(toggleId);
+    if (checkbox) checkbox.checked = false;
   });
+
 
   window.map.setFilter("calles-layer", ["==", "CVE_ENT", codigoEntidad]);
   window.map.setLayoutProperty("calles-layer", "visibility", "visible");

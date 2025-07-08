@@ -248,7 +248,7 @@ function configurarCapas() {
       type: "geojson",
       data: { type: "FeatureCollection", features: [] }, 
       buffer: 512,
-      tolerance: 0.1
+      tolerance: 0.05
     });
 
     window.map.addLayer({
