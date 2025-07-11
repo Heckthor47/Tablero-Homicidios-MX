@@ -15,23 +15,6 @@
   <link rel="stylesheet" href="estilos/general.css" />
   <link rel="stylesheet" href="estilos/mapa.css" />
   <link rel="icon" href="imagenes/logo_2025.png" type="image/png">
-
-<!-- Firebase App (core) + Auth -->
-<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth.js"></script>
-<script>
-    const firebaseConfig = {
-    apiKey: "AIzaSyCN9aRnLqIwhsWg_LGjvvNlkXHVudxZBhY",
-    authDomain: "iniccs17.firebaseapp.com",
-    projectId: "iniccs17",
-    storageBucket: "iniccs17.firebasestorage.app",
-    messagingSenderId: "341022346967",
-    appId: "1:341022346967:web:2925f89ee06bc2cf032a92",
-    measurementId: "G-D9GZXNZMFH"
-  };
-  firebase.initializeApp(firebaseConfig);
-</script>
-
 </head>
 <body class="mapa-page">
 
@@ -44,7 +27,6 @@
 </div>
 
 <div id="app" style="display:none;">
-
   <div class="page">
     <header-gob></header-gob>
     <!-- CONTENIDO PRINCIPAL -->
@@ -113,13 +95,27 @@
 <!-- Entrada principal -->
 <script type="module" src="scripts/main.js"></script>
 
-
 </div>
 
-<script>
-  const auth = firebase.auth();
+<!-- Firebase SDKs (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
-  // Escucha cambios de sesión
+<!-- Inicializar Firebase y autenticación -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCN9aRnLqIwhsWg_LGjvvNlkXHVudxZBhY",
+    authDomain: "iniccs17.firebaseapp.com",
+    projectId: "iniccs17",
+    storageBucket: "iniccs17.appspot.com",
+    messagingSenderId: "341022346967",
+    appId: "1:341022346967:web:2925f89ee06bc2cf032a9",
+    measurementId: "G-D9GZXNZMFH"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  auth.signOut();  
+
   auth.onAuthStateChanged(user => {
     if (user) {
       document.getElementById('login-container').style.display = 'none';
@@ -135,7 +131,11 @@
     const pass  = document.getElementById('password').value;
     const errorText = document.getElementById('login-error');
 
-    auth.signInWithEmailAndPassword(email, pass)
+    // Establecer persistencia en sesión (solo mientras el navegador esté abierto)
+    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      .then(() => {
+        return auth.signInWithEmailAndPassword(email, pass);
+      })
       .then(() => {
         errorText.textContent = '';
       })
@@ -145,6 +145,7 @@
       });
   }
 </script>
+
 
 </body>
 </html>
