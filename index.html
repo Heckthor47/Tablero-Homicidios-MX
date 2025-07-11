@@ -15,8 +15,36 @@
   <link rel="stylesheet" href="estilos/general.css" />
   <link rel="stylesheet" href="estilos/mapa.css" />
   <link rel="icon" href="imagenes/logo_2025.png" type="image/png">
+
+<!-- Firebase App (core) + Auth -->
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth.js"></script>
+<script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyCN9aRnLqIwhsWg_LGjvvNlkXHVudxZBhY",
+    authDomain: "iniccs17.firebaseapp.com",
+    projectId: "iniccs17",
+    storageBucket: "iniccs17.firebasestorage.app",
+    messagingSenderId: "341022346967",
+    appId: "1:341022346967:web:2925f89ee06bc2cf032a92",
+    measurementId: "G-D9GZXNZMFH"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
+
 </head>
 <body class="mapa-page">
+
+<div id="login-container" style="text-align:center; padding:2em;">
+  <h2>Iniciar sesión</h2>
+  <input id="email" type="email" placeholder="Correo electrónico"><br><br>
+  <input id="password" type="password" placeholder="Contraseña"><br><br>
+  <button onclick="login()">Ingresar</button>
+  <p id="login-error" style="color:red;"></p>
+</div>
+
+<div id="app" style="display:none;">
+
   <div class="page">
     <header-gob></header-gob>
     <!-- CONTENIDO PRINCIPAL -->
@@ -84,6 +112,39 @@
 
 <!-- Entrada principal -->
 <script type="module" src="scripts/main.js"></script>
+
+
+</div>
+
+<script>
+  const auth = firebase.auth();
+
+  // Escucha cambios de sesión
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      document.getElementById('login-container').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+    } else {
+      document.getElementById('login-container').style.display = 'block';
+      document.getElementById('app').style.display = 'none';
+    }
+  });
+
+  function login() {
+    const email = document.getElementById('email').value;
+    const pass  = document.getElementById('password').value;
+    const errorText = document.getElementById('login-error');
+
+    auth.signInWithEmailAndPassword(email, pass)
+      .then(() => {
+        errorText.textContent = '';
+      })
+      .catch(error => {
+        errorText.textContent = 'Credenciales incorrectas o usuario no registrado.';
+        console.error(error);
+      });
+  }
+</script>
 
 </body>
 </html>
