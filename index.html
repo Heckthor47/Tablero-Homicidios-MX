@@ -117,9 +117,16 @@
   auth.signOut();  
 
   auth.onAuthStateChanged(user => {
-    if (user) {
-      document.getElementById('login-container').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
+  if (user) {
+    document.getElementById('login-container').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+
+    // Forzar redimensionamiento después de que el div #app sea visible
+    setTimeout(() => {
+      if (window.map && typeof window.map.resize === "function") {
+        window.map.resize();
+      }
+    }, 200);
     } else {
       document.getElementById('login-container').style.display = 'block';
       document.getElementById('app').style.display = 'none';
