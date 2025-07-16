@@ -97,6 +97,9 @@ document.addEventListener('DOMContentLoaded', function () {
             // Disparar evento personalizado
             document.dispatchEvent(new Event("municipios-cargados"));
             console.log("Datos cargados correctamente.");
+            setTimeout(() => {
+              document.dispatchEvent(new Event("municipios-cargados"));
+            }, 0);
           })
           .catch(err => console.error("Error al cargar municipios:", err))
       ]).then(() => {

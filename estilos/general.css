@@ -43,6 +43,10 @@ body, .page {
   height: 100%;
 }
 
+body.login-page {
+  padding-top: 0 !important;
+}
+
 .main-content {
   flex: 1 0 auto;
   display: flex;
@@ -880,6 +884,7 @@ header h1 {
   content: none;
 }
 
+
 /* =========================
   Login caja
   ========================= */
@@ -897,20 +902,18 @@ header h1 {
 
 .background-image {
   position: absolute;
+  top: 0; left: 0;
   width: 100vw;
-  top: 0; left: 0; right: 0; bottom: 0;
   height: 100vh;
+  background-image: url('../imagenes/fondo_inicio.svg');
+  background-size: cover;   /* O usa "cover" si prefieres */
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: 0;
   pointer-events: none;
-  overflow: hidden;
 }
 
-.background-image img {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  display: block;
-}
+
 
 .login-wrapper {
   position: relative;
@@ -964,11 +967,6 @@ header h1 {
   cursor: pointer;
 }
 
-/* Solo para login.html */
-body.login-page {
-  margin: 0;
-  padding: 0;
-}
 
 .dropdown-toggle:focus {
   outline: none;
