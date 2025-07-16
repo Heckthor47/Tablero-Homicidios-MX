@@ -905,7 +905,7 @@ header h1 {
   top: 0; left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url('../imagenes/fondo_inicio.svg');
+  background-image: url('../imagenes/fondo_inicio.png');
   background-size: cover;   /* O usa "cover" si prefieres */
   background-position: center;
   background-repeat: no-repeat;
